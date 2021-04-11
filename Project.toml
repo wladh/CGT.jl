@@ -3,6 +3,16 @@ uuid = "045abbb4-f877-49bb-b163-313f771439d9"
 authors = ["Vlad Hanciuta <wladsh@gmail.com> and contributors"]
 version = "0.1.0"
 
+[deps]
+ArgParse = "c7e460c6-2fb9-53a9-8c5b-16f535851c63"
+CurrencyAmounts = "35f9db7c-caf0-4b8b-9aa8-b55447bc07d3"
+DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
+Dates = "ade2ca70-3891-5945-98fb-dc099432e06a"
+DelimitedFiles = "8bb1440f-4735-579b-a4ab-409b98df4dab"
+FixedPointDecimals = "fb4d412d-6eee-574d-9565-ede6634db7b0"
+HTTP = "cd3eb016-35fb-5094-929b-558a96fad6f3"
+XLSX = "fdbf4ff8-1666-58a4-91e7-1b58723a45e0"
+
 [compat]
 julia = "1"
 
