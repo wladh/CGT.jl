@@ -15,6 +15,11 @@ XLSX = "fdbf4ff8-1666-58a4-91e7-1b58723a45e0"
 
 [compat]
 ArgParse = "1.1"
+CurrencyAmounts = "0.1"
+DataFrames = "0.22"
+FixedPointDecimals = "0.3"
+HTTP = "0.9"
+XLSX = "0.7"
 julia = "1"
 
 [extras]
