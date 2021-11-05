@@ -66,8 +66,7 @@ function period(c::Currency, df::AbstractDataFrame; details=false)
 	if details
 		show(df; allrows=true, allcols=true, summary=false, eltypes=false, show_row_number=false, vlines=:all, newline_at_end=true, hlines=[:begin, :header, :end], filters_col=((_, i) -> cols[i] != :Late,))
 	end
-	println("Gain/Loss: ", gain)
-	println("Tax: ", max(0c, gain) * Tax)
+	println("Gain/loss for period: ", gain)
 
 	gain
 end
@@ -90,8 +89,8 @@ end
 
 function compute(sales::Sales{Currency{:EUR}}; details=false)
 	total_gain = by_period(sales; details)
-	net_gain = total_gain >= Allowance ? total_gain - Allowance : total_gain
-	tax = max(net_gain, 0EUR) * Tax
+	net_gain = max( total_gain - Allowance, 0EUR )
+	tax = net_gain * Tax
 
 	println("Total gain/loss: ", total_gain)
 	println("Net gain/loss excluding the allowance: ", net_gain)
