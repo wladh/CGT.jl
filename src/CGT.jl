@@ -89,11 +89,11 @@ end
 
 function compute(sales::Sales{Currency{:EUR}}; details=false)
 	total_gain = by_period(sales; details)
-	net_gain = max( total_gain - Allowance, 0EUR )
-	tax = net_gain * Tax
+	taxable_gain = max( total_gain - Allowance, 0EUR )
+	tax = taxable_gain * Tax
 
 	println("Total gain/loss: ", total_gain)
-	println("Net gain/loss excluding the allowance: ", net_gain)
+	println("Taxable gain/loss (excluding the allowance): ", taxable_gain)
 	println("Total tax: ", tax)
 
 	tax
