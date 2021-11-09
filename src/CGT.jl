@@ -93,7 +93,7 @@ function compute(sales::Sales{Currency{:EUR}}; details=false)
 	tax = taxable_gain * Tax
 
 	println("Total gain/loss: ", total_gain)
-	println("Taxable gain/loss (excluding the allowance): ", taxable_gain)
+	println("Taxable gains (excluding the allowance): ", taxable_gain)
 	println("Total tax: ", tax)
 
 	tax
