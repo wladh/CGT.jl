@@ -21,7 +21,7 @@ end
 ExchangeRates(::From, ::To) where {From <: Currency, To <: Currency} = ExchangeRates{From, To}(Dict())
 
 function fetch(date, from, to)
-	url = "https://sdw-wsrest.ecb.europa.eu/service/data/EXR/D.$from.$to.SP00.A?detail=dataonly&startPeriod=$date&endPeriod=$date"
+	url = "https://data-api.ecb.europa.eu/service/data/EXR/D.$from.$to.SP00.A?detail=dataonly&startPeriod=$date&endPeriod=$date"
 	(data, header) = readdlm(HTTP.get(url, ["Accept" => "text/csv"]).body, ','; header=true)
 	Fixed(data[findfirst(isequal("OBS_VALUE"), header)])
 end
