@@ -51,7 +51,7 @@ function load(file)
 	fmt = DateFormat("m/d/y")
 	to_usd(s) = Fixed(s)*USD
 
-	df = DataFrame(XLSX.gettable(XLSX.readxlsx(file)[1])...)
+	df = DataFrame(XLSX.readtable(file, "G&L_Expanded"))
 	filter!("Record Type" => isequal("Sell"), df)
 	select!(df, "Date Sold" => ByRow(d -> Date(d, fmt)) => "Date", "Plan Type" => "Type", "Total Proceeds" => ByRow(to_usd) => "Proceeds", "Adjusted Gain/Loss" => ByRow(to_usd) => "Gains")
 	sort!(df, :Date)
