@@ -64,7 +64,7 @@ function period(c::Currency, df::AbstractDataFrame; details=false)
 	cols = propertynames(df)
 
 	if details
-		show(df; allrows=true, allcols=true, summary=false, eltypes=false, show_row_number=false, vlines=:all, newline_at_end=true, hlines=[:begin, :header, :end], filters_col=((_, i) -> cols[i] != :Late,))
+		show(df; allrows=true, allcols=true, summary=false, eltypes=false, show_row_number=false, vlines=:all, newline_at_end=true, hlines=[:begin, :header, :end])
 	end
 	println("Gain/Loss: ", gain)
 	println("Tax: ", max(0c, gain) * Tax)
