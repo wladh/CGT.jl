@@ -14,12 +14,14 @@ HTTP = "cd3eb016-35fb-5094-929b-558a96fad6f3"
 XLSX = "fdbf4ff8-1666-58a4-91e7-1b58723a45e0"
 
 [compat]
-ArgParse = "1.1"
-CurrencyAmounts = "0.1"
-DataFrames = "0.22, 1"
-FixedPointDecimals = "0.3"
-HTTP = "0.9"
-XLSX = "0.7"
+ArgParse = "1.2.0"
+CurrencyAmounts = "0.1.2"
+DataFrames = "1.7.0"
+Dates = "1.11.0"
+DelimitedFiles = "1.9.1"
+FixedPointDecimals = "0.5.3"
+HTTP = "1.10.8"
+XLSX = "0.10.4"
 julia = "1"
 
 [extras]

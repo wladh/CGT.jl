@@ -21,7 +21,7 @@ end
 ExchangeRates(::From, ::To) where {From <: Currency, To <: Currency} = ExchangeRates{From, To}(Dict())
 
 function fetch(date, from, to)
-	url = "https://sdw-wsrest.ecb.europa.eu/service/data/EXR/D.$from.$to.SP00.A?detail=dataonly&startPeriod=$date&endPeriod=$date"
+	url = "https://data-api.ecb.europa.eu/service/data/EXR/D.$from.$to.SP00.A?detail=dataonly&startPeriod=$date&endPeriod=$date"
 	(data, header) = readdlm(HTTP.get(url, ["Accept" => "text/csv"]).body, ','; header=true)
 	Fixed(data[findfirst(isequal("OBS_VALUE"), header)])
 end
@@ -51,7 +51,7 @@ function load(file)
 	fmt = DateFormat("m/d/y")
 	to_usd(s) = Fixed(s)*USD
 
-	df = DataFrame(XLSX.gettable(XLSX.readxlsx(file)[1])...)
+	df = DataFrame(XLSX.readtable(file, "G&L_Expanded"))
 	filter!("Record Type" => isequal("Sell"), df)
 	select!(df, "Date Sold" => ByRow(d -> Date(d, fmt)) => "Date", "Plan Type" => "Type", "Total Proceeds" => ByRow(to_usd) => "Proceeds", "Adjusted Gain/Loss" => ByRow(to_usd) => "Gains")
 	sort!(df, :Date)
@@ -64,7 +64,7 @@ function period(c::Currency, df::AbstractDataFrame; details=false)
 	cols = propertynames(df)
 
 	if details
-		show(df; allrows=true, allcols=true, summary=false, eltypes=false, show_row_number=false, vlines=:all, newline_at_end=true, hlines=[:begin, :header, :end], filters_col=((_, i) -> cols[i] != :Late,))
+		show(df; allrows=true, allcols=true, summary=false, eltypes=false, show_row_number=false, vlines=:all, newline_at_end=true, hlines=[:begin, :header, :end])
 	end
 	println("Gain/Loss: ", gain)
 	println("Tax: ", max(0c, gain) * Tax)
