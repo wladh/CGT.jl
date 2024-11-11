@@ -61,6 +61,7 @@ end
 
 function period(c::Currency, df::AbstractDataFrame; details=false)
 	gain = sum(df.Gains)
+	proceeds = sum(df.Proceeds)
 	cols = propertynames(df)
 
 	if details
@@ -68,6 +69,7 @@ function period(c::Currency, df::AbstractDataFrame; details=false)
 	end
 	println("Gain/Loss: ", gain)
 	println("Tax: ", max(0c, gain) * Tax)
+	println("Proceeds: ", proceeds)
 
 	gain
 end
@@ -90,7 +92,7 @@ end
 
 function compute(sales::Sales{Currency{:EUR}}; details=false)
 	total_gain = by_period(sales; details)
-	net_gain = total_gain >= Allowance ? total_gain - Allowance : total_gain
+	net_gain =  total_gain < 0EUR ? total_gain : total_gain > Allowance ? total_gain - Allowance : 0EUR
 	tax = max(net_gain, 0EUR) * Tax
 
 	println("Total gain/loss: ", total_gain)
